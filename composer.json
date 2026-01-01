@@ -1,0 +1,13 @@
+{
+    "name": "spritz/spritz-instagram-feed",
+    "description": "Spritz Instagram Feed Plugin",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Spritz",
+            "email": "contact@agence-spritz.com"
+        }
+    ],
+    "require": {}
+}
