@@ -62,14 +62,15 @@ function spritz_instagram_enqueue_styles()
 		SPRITZ_INSTAGRAMFEED_VERSION,
 		true
 	);
-	// Charger la feuille de style front-end
+	// Charger la feuille de	// Enqueue Plugin CSS (Désactivé car géré par Webpack dans le thème)
+	/*
 	wp_enqueue_style(
-		'spritz-instagram-styles',
+		'spritz-instagram-feed-styles',
 		plugin_dir_url(__FILE__) . 'src/css/styles.css',
-		[],
-		SPRITZ_INSTAGRAMFEED_VERSION, // Utiliser la version du plugin pour forcer la mise à jour
-		'all'
+		array(),
+		'1.0.0'
 	);
+	*/
 }
 add_action('wp_enqueue_scripts', 'spritz_instagram_enqueue_styles');
 
