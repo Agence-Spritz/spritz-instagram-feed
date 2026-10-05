@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Spritz Instagram Feed
-Plugin URI: http://www.agence-spritz.com/
+Plugin URI: https://github.com/Agence-Spritz/spritz-instagram-feed
 Description: Plugin permettant la récupération du flux Instagram, son affichage direct sur le site par le biais d'un shortcode.
-Version: 2.1
+Version: 2.2.0
 Author: Agence Spritz
-Author URI: http://www.agence-spritz.com/
+Author URI: https://www.agence-spritz.com/
 License: GPLv2
 */
 
@@ -13,8 +13,20 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+// Mises à jour automatiques depuis les releases GitHub (asset spritz-instagram-feed.zip).
+// Désactivé sur une copie de travail git (dev local, plugin en symlink) : une mise à jour
+// lancée depuis l'admin écraserait les sources du dépôt.
+if (!is_dir(__DIR__ . '/.git')) {
+	require_once __DIR__ . '/lib/plugin-update-checker/plugin-update-checker.php';
+	\YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+		'https://github.com/Agence-Spritz/spritz-instagram-feed/',
+		__FILE__,
+		'spritz-instagram-feed'
+	)->getVcsApi()->enableReleaseAssets('/spritz\-instagram\-feed\.zip$/');
+}
+
 // Définitions des constantes
-define('SPRITZ_INSTAGRAMFEED_VERSION', '2.1');
+define('SPRITZ_INSTAGRAMFEED_VERSION', '2.2.0');
 define('SPRITZ_INSTAGRAMFEED_PLUGIN_ABSPATH', dirname(__FILE__));
 define('SPRITZ_INSTAGRAMFEED_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -137,7 +149,7 @@ function spritz_insta_settings_page()
 			</p>
 
 			<p>
-				<a href="<?php echo admin_url('admin.php?page=spritz-instagram-feed&refresh_token=1'); ?>" class="button button-secondary">
+				<a href="<?php echo esc_url(admin_url('admin.php?page=spritz-instagram-feed&refresh_token=1')); ?>" class="button button-secondary">
 					🔁 Forcer le rafraîchissement du token
 				</a>
 			</p>
@@ -145,7 +157,7 @@ function spritz_insta_settings_page()
 				Dernière mise à jour du token :
 				<?php
 				$last = get_option('instagram_last_update');
-				echo $last ? date_i18n('d/m/Y H:i', $last) : 'jamais';
+				echo esc_html($last ? date_i18n('d/m/Y H:i', $last) : 'jamais');
 				?>
 				<?php
 				$active_token = get_option('instagram_access_token');

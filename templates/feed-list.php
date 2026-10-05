@@ -41,7 +41,7 @@ if (empty($feed)) {
                             </p>
                         </div>
                         <div class="author padding-20px-all">
-                            <a href="<?php echo esc_url($post['permalink']); ?>" aria-label="<?php echo truncate_caption($post['caption'], 40); ?>" target="_blank" rel="noreferrer noopener" class="post-title text-small margin-15px-top">
+                            <a href="<?php echo esc_url($post['permalink']); ?>" aria-label="<?php echo esc_attr(wp_strip_all_tags(truncate_caption($post['caption'] ?? '', 40))); ?>" target="_blank" rel="noreferrer noopener" class="post-title text-small margin-15px-top">
                                 <span>En savoir plus</span> <i class="ti-arrow-down icon-extra-small"></i>
                             </a>
                         </div>
